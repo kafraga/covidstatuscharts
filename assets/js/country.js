@@ -13,7 +13,6 @@ let linhas = document.getElementById("linhas");
 let linhasContainer = document.getElementById("linhasContainer");
 let startUnformattedDate = new Date();
 let endUnformattedDate = new Date();
-let beforeUnformattedStartDate = new Date();
 let startDate = startUnformattedDate.toISOString().split("T")[0];
 let endDate = endUnformattedDate.toISOString().split("T")[0];
 let selectedCountry = "brazil";
@@ -27,7 +26,7 @@ let summary = {};
     countries = await getCountries();
     countriesByAllStatus = await getCountryAllStatus(
       selectedCountry,
-      getPreviousDate(getPreviousDate(startDate)),
+      getFourDaysBefore(startDate),
       getPreviousDate(endDate)
     );
     summary = await getSummary();
@@ -80,6 +79,12 @@ async function renderDefault(countries, countriesByAllStatus) {
 function getPreviousDate(stardate) {
   const previousDate = new Date(stardate);
   previousDate.setDate(previousDate.getDate() - 1);
+  return previousDate;
+}
+
+function getFourDaysBefore(stardate) {
+  const previousDate = new Date(stardate);
+  previousDate.setDate(previousDate.getDate() - 4);
   return previousDate;
 }
 
