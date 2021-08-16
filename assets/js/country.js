@@ -97,14 +97,16 @@ function getDeltaForChart(countriesByAllStatus, info) {
       countriesByAllStatus[i][info] - countriesByAllStatus[i - 1][info],
     ];
   }
+  console.log(yDaily);
   return yDaily;
 }
 
-function getChartAvg(countriesByAllStatus) {
+function getChartAvg(countriesByAllStatus, info) {
   let avgCountries = [];
   let acc = 0;
   let avg = 0;
-  let delta = getDeltaForChart(countriesByAllStatus);
+  let delta = getDeltaForChart(countriesByAllStatus, info);
+  console.log(delta);
   for (let i = 0; i < delta.length; i++) {
     acc += delta[i];
   }
@@ -123,7 +125,8 @@ function getLineChart(countriesByAllStatus, info) {
       '<canvas id="linhas" width="300" height="100"></canvas>';
   }
   let yDaily = getDeltaForChart(countriesByAllStatus, info);
-  let avgCountries = getChartAvg(countriesByAllStatus);
+  let avgCountries = getChartAvg(countriesByAllStatus, info);
+  console.log(avgCountries);
   linhas = new Chart(document.getElementById("linhas"), {
     type: "line",
     data: {
